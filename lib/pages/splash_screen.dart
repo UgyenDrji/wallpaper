@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:wallpaper/pages/page1.dart';
+import 'package:wallpaper/pages/wall_home.dart';
 import 'package:wallpaper/view_page/home_view.dart';
 
 
@@ -19,9 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Timer(
         Duration(seconds: 3),
-            () => Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (builder) => WallpaperPage()),
-                (route) => false));
+            () =>Get.offNamed('/home'));
     super.initState();
   }
 

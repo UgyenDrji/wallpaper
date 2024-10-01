@@ -1,14 +1,14 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:wallpaper/view_model/home_view_model.dart';
-
 class HomeView extends StatelessWidget {
   HomeView({super.key});
 
   List<Tab> categories = [
     Tab(
-      text: "BHUTAN",
+      text: "NATURE",
     ),
     Tab(
       text: "CITY",
@@ -44,7 +44,9 @@ class HomeView extends StatelessWidget {
           bottom: TabBar(
             tabs: categories,
             indicator: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), color: Colors.yellow),
+                borderRadius: BorderRadius.circular(30),
+                color: Colors.yellow
+            ),
             unselectedLabelColor: Colors.white,
             isScrollable: true,
             indicatorWeight: 0,
@@ -55,26 +57,19 @@ class HomeView extends StatelessWidget {
           ),
         ),
         body: TabBarView(
-          children: categories
-              .map((tab) => customGridView(tab.text!.toLowerCase()))
-              .toList(),
+          children: categories.map((tab) => customGridView(tab.text!.toLowerCase())).toList(),
         ),
       ),
     );
   }
-
   Widget customGridView(String category) {
     ms.vmGetwallpaperData(category);
     return GetBuilder<HomeViewModel>(
       builder: (_) {
-        if (ms.isLoading) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (ms.wallpapers[category] == null) {
-          return Center(
-            child: Text("No data found"),
-          );
+        if(ms.isLoading) {
+          return Center(child: CircularProgressIndicator(),);
+        } else if(ms.wallpapers[category] == null) {
+          return Center(child: Text("No data found"),);
         } else {
           return MasonryGridView.count(
             crossAxisCount: 2,
@@ -84,7 +79,7 @@ class HomeView extends StatelessWidget {
             itemBuilder: (context, index) {
               final photo = ms.vmWallpapers(category)[index];
               return GestureDetector(
-                onTap: () {
+                onTap: (){
                   Get.toNamed('/details', arguments: photo);
                 },
                 child: Hero(
